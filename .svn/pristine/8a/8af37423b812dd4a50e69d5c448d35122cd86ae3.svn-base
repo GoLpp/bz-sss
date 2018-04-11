@@ -1,0 +1,194 @@
+package com.qfedu.bz.dto;
+import java.util.Date;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.qfedu.bz.entity.Leave;
+import com.qfedu.common.util.WoConstant;
+
+public class LeaveDto {
+	
+	private final static Logger LOG = LogManager.getLogger(LeaveDto.class);
+	
+	public LeaveDto () {
+		
+	}
+	
+	public LeaveDto (Leave l) {
+		this.id = l.getId();
+		this.procInstId = l.getProcInstId();
+		this.reason = l.getReason();
+		if (l.getStaff() != null) {
+			this.staffId = l.getStaff().getId();
+			this.staffName = l.getStaff().getName();
+		}
+		this.createTime = l.getCreateTime();
+		this.applyTime = l.getApplyTime();
+		if (l.getManager() != null) {
+			this.managerId = l.getManager().getId();
+			this.managerName = l.getManager().getName();
+		}
+		this.reviewTime = l.getReviewTime();
+		this.reviewResult = l.getReviewResult();
+		this.reviewRemark = l.getReviewRemark();
+	}
+	
+	/**
+	 * ID
+	 */
+	private String id;
+	
+	/**
+	 * 原因
+	 */
+	private String reason;
+
+	/**
+	 * 员工ID
+	 */
+	private String staffId;
+	
+	/**
+	 * 员工名称
+	 */
+	private String staffName;
+
+	/**
+	 * 创建时间
+	 */
+	private Date createTime;
+	
+	/**
+	 * 申请时间
+	 */
+	private Date applyTime;
+	
+	/**
+	 * 管理者ID
+	 */
+	private String managerId;
+	
+	/**
+	 * 管理者名称
+	 */
+	private String managerName;
+	
+	/**
+	 * 审核时间
+	 */
+	private Date reviewTime;
+	
+	/**
+	 * 审核结果
+	 */
+	private Boolean reviewResult = false;
+	
+	/**
+	 * 审核说明
+	 */
+	private String reviewRemark;
+
+	private String procInstId;
+	
+	public String getProcInstId() {
+		return procInstId;
+	}
+
+	public void setProcInstId(String procInstId) {
+		this.procInstId = procInstId;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
+	public String getStaffName() {
+		return staffName;
+	}
+
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
+	@JsonFormat(pattern = WoConstant.FORMAT_DATETIME, locale = "zh", timezone = "GMT+8")
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	@JsonFormat(pattern = WoConstant.FORMAT_DATETIME, locale = "zh", timezone = "GMT+8")
+	public Date getApplyTime() {
+		return applyTime;
+	}
+
+	public void setApplyTime(Date applyTime) {
+		this.applyTime = applyTime;
+	}
+
+	public String getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
+	}
+
+	public String getManagerName() {
+		return managerName;
+	}
+
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
+	}
+
+	@JsonFormat(pattern = WoConstant.FORMAT_DATETIME, locale = "zh", timezone = "GMT+8")
+	public Date getReviewTime() {
+		return reviewTime;
+	}
+
+	public void setReviewTime(Date reviewTime) {
+		this.reviewTime = reviewTime;
+	}
+
+	public Boolean getReviewResult() {
+		return reviewResult;
+	}
+
+	public void setReviewResult(Boolean reviewResult) {
+		this.reviewResult = reviewResult;
+	}
+
+	public String getReviewRemark() {
+		return reviewRemark;
+	}
+
+	public void setReviewRemark(String reviewRemark) {
+		this.reviewRemark = reviewRemark;
+	}
+	
+}

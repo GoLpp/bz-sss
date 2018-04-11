@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="leaveDemo" name="My process" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="staffId" name="staffId" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="taskLeaveApply" name="申请" activiti:candidateUsers="${staffId}">
+      <extensionElements>
+        <activiti:formProperty id="reason" name="reason" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="taskLeaveApply"></sequenceFlow>
+    <userTask id="taskLeaveReview" name="审批" activiti:candidateUsers="1">
+      <extensionElements>
+        <activiti:formProperty id="result" name="result" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="remark" name="remark" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="taskLeaveApply" targetRef="taskLeaveReview"></sequenceFlow>
+    <exclusiveGateway id="gwDecision" name="审批通过？" default="flowApproved"></exclusiveGateway>
+    <sequenceFlow id="flow3" sourceRef="taskLeaveReview" targetRef="gwDecision"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flowApproved" name="YES" sourceRef="gwDecision" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flowRefused" name="NO" sourceRef="gwDecision" targetRef="taskLeaveApply">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!result}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_leaveDemo">
+    <bpmndi:BPMNPlane bpmnElement="leaveDemo" id="BPMNPlane_leaveDemo">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="120.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="taskLeaveApply" id="BPMNShape_taskLeaveApply">
+        <omgdc:Bounds height="55.0" width="105.0" x="200.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="taskLeaveReview" id="BPMNShape_taskLeaveReview">
+        <omgdc:Bounds height="55.0" width="105.0" x="350.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="gwDecision" id="BPMNShape_gwDecision">
+        <omgdc:Bounds height="40.0" width="40.0" x="500.0" y="178.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="585.0" y="181.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="155.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="197.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="305.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="197.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="455.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="500.0" y="198.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flowApproved" id="BPMNEdge_flowApproved">
+        <omgdi:waypoint x="540.0" y="198.0"></omgdi:waypoint>
+        <omgdi:waypoint x="585.0" y="198.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="21.0" x="540.0" y="198.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flowRefused" id="BPMNEdge_flowRefused">
+        <omgdi:waypoint x="520.0" y="218.0"></omgdi:waypoint>
+        <omgdi:waypoint x="519.0" y="280.0"></omgdi:waypoint>
+        <omgdi:waypoint x="252.0" y="280.0"></omgdi:waypoint>
+        <omgdi:waypoint x="252.0" y="225.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="15.0" x="520.0" y="218.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

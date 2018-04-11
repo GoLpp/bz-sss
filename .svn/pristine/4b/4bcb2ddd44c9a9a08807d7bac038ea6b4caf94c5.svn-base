@@ -1,0 +1,747 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50717
+Source Host           : localhost:3306
+Source Database       : bz-sss
+
+Target Server Type    : MYSQL
+Target Server Version : 50717
+File Encoding         : 65001
+
+Date: 2018-04-03 17:23:30
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `bz_envinfo`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_envinfo`;
+CREATE TABLE `bz_envinfo` (
+  `id` varchar(50) NOT NULL,
+  `collectedTime` datetime DEFAULT NULL,
+  `humidity` double DEFAULT NULL,
+  `pressure` double DEFAULT NULL,
+  `temperature` double DEFAULT NULL,
+  `ultravioletrays` double DEFAULT NULL,
+  `gateway_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKedvnmpdvpjsjvomj40j693bby` (`gateway_id`),
+  KEY `FKk5p17k245orjbl5kiukp40q7r` (`staff_id`),
+  KEY `FKdoovae3jlwmt388j5hw28p7cx` (`task_id`),
+  CONSTRAINT `FKdoovae3jlwmt388j5hw28p7cx` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`),
+  CONSTRAINT `FKedvnmpdvpjsjvomj40j693bby` FOREIGN KEY (`gateway_id`) REFERENCES `bz_weargateway` (`id`),
+  CONSTRAINT `FKk5p17k245orjbl5kiukp40q7r` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_envinfo
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_gis`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_gis`;
+CREATE TABLE `bz_gis` (
+  `id` varchar(50) NOT NULL,
+  `altitude` double DEFAULT NULL,
+  `collectedTime` datetime DEFAULT NULL,
+  `latitude` double DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
+  `gateway_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKr9qmw3ub5qjqksat9pbnsuiqb` (`gateway_id`),
+  KEY `FKdtvfs0cj5gn2dgilt685mv0q9` (`staff_id`),
+  KEY `FK2il33n571afvolpx4mjtkplu` (`task_id`),
+  CONSTRAINT `FK2il33n571afvolpx4mjtkplu` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`),
+  CONSTRAINT `FKdtvfs0cj5gn2dgilt685mv0q9` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKr9qmw3ub5qjqksat9pbnsuiqb` FOREIGN KEY (`gateway_id`) REFERENCES `bz_weargateway` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_gis
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_health_blood`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_health_blood`;
+CREATE TABLE `bz_health_blood` (
+  `id` varchar(50) NOT NULL,
+  `collectedTime` datetime DEFAULT NULL,
+  `collectedValue` varchar(50) NOT NULL,
+  `weargateway_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  `watch_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKoonk8u8dbvdcn4u0pa7ed6mew` (`weargateway_id`),
+  KEY `FKdiula8wivvk5v4bixsnet2j3f` (`staff_id`),
+  KEY `FK7iwl5b0830dxq5xolovuci7ds` (`task_id`),
+  KEY `FK5wafcwwx1n5mibvlmebhq0r8q` (`watch_id`),
+  CONSTRAINT `FK5wafcwwx1n5mibvlmebhq0r8q` FOREIGN KEY (`watch_id`) REFERENCES `bz_watch` (`id`),
+  CONSTRAINT `FK7iwl5b0830dxq5xolovuci7ds` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`),
+  CONSTRAINT `FKdiula8wivvk5v4bixsnet2j3f` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKoonk8u8dbvdcn4u0pa7ed6mew` FOREIGN KEY (`weargateway_id`) REFERENCES `bz_weargateway` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_health_blood
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_health_fatigue`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_health_fatigue`;
+CREATE TABLE `bz_health_fatigue` (
+  `id` varchar(50) NOT NULL,
+  `collectedTime` datetime DEFAULT NULL,
+  `collectedValue` varchar(50) NOT NULL,
+  `weargateway_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  `watch_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKebaweapr2jwrvvs9uxjuqy5y9` (`weargateway_id`),
+  KEY `FK32v3lqxlhha7o5m0y2s7ikorl` (`staff_id`),
+  KEY `FKjryw8npmgmvh16pn8j475qn5f` (`task_id`),
+  KEY `FKjw8pus8vbvid1n977tm5gea5` (`watch_id`),
+  CONSTRAINT `FK32v3lqxlhha7o5m0y2s7ikorl` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKebaweapr2jwrvvs9uxjuqy5y9` FOREIGN KEY (`weargateway_id`) REFERENCES `bz_weargateway` (`id`),
+  CONSTRAINT `FKjryw8npmgmvh16pn8j475qn5f` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`),
+  CONSTRAINT `FKjw8pus8vbvid1n977tm5gea5` FOREIGN KEY (`watch_id`) REFERENCES `bz_watch` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_health_fatigue
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_health_heart`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_health_heart`;
+CREATE TABLE `bz_health_heart` (
+  `id` varchar(50) NOT NULL,
+  `collectedTime` datetime DEFAULT NULL,
+  `collectedValue` varchar(50) NOT NULL,
+  `weargateway_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  `watch_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKt15ga0aj39t6a3oyeai9c3j4j` (`weargateway_id`),
+  KEY `FK7bjhddethk4av1y7qdfhoqhco` (`staff_id`),
+  KEY `FKkwaf9svkcrngar1phpnna1vr` (`task_id`),
+  KEY `FKfbgjr09d4lj67t75iercwocqj` (`watch_id`),
+  CONSTRAINT `FK7bjhddethk4av1y7qdfhoqhco` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKfbgjr09d4lj67t75iercwocqj` FOREIGN KEY (`watch_id`) REFERENCES `bz_watch` (`id`),
+  CONSTRAINT `FKkwaf9svkcrngar1phpnna1vr` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`),
+  CONSTRAINT `FKt15ga0aj39t6a3oyeai9c3j4j` FOREIGN KEY (`weargateway_id`) REFERENCES `bz_weargateway` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_health_heart
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_health_heartrate`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_health_heartrate`;
+CREATE TABLE `bz_health_heartrate` (
+  `id` varchar(50) NOT NULL,
+  `collectedTime` datetime DEFAULT NULL,
+  `collectedValue` varchar(50) NOT NULL,
+  `weargateway_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  `watch_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKmxuyuslrgsaqsg59ewoi3pwe8` (`weargateway_id`),
+  KEY `FK5ryjqge0k9ng6enw92wdsr2a3` (`staff_id`),
+  KEY `FKtb28eiuycr0hk6r8h7n1uv0mq` (`task_id`),
+  KEY `FKreikfn82ij6o2ha235c2n0ixb` (`watch_id`),
+  CONSTRAINT `FK5ryjqge0k9ng6enw92wdsr2a3` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKmxuyuslrgsaqsg59ewoi3pwe8` FOREIGN KEY (`weargateway_id`) REFERENCES `bz_weargateway` (`id`),
+  CONSTRAINT `FKreikfn82ij6o2ha235c2n0ixb` FOREIGN KEY (`watch_id`) REFERENCES `bz_watch` (`id`),
+  CONSTRAINT `FKtb28eiuycr0hk6r8h7n1uv0mq` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_health_heartrate
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_health_press`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_health_press`;
+CREATE TABLE `bz_health_press` (
+  `id` varchar(50) NOT NULL,
+  `collectedTime` datetime DEFAULT NULL,
+  `collectedValue` varchar(50) NOT NULL,
+  `weargateway_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  `watch_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK2jwyvqtrlfe9w8wfor40pk71o` (`weargateway_id`),
+  KEY `FKm5cyms6adpetvxn95ry0yrou1` (`staff_id`),
+  KEY `FK2607u9ac0dj8p6iu2hfjt6df3` (`task_id`),
+  KEY `FKgp4slnrt2d78sys02ksb57js9` (`watch_id`),
+  CONSTRAINT `FK2607u9ac0dj8p6iu2hfjt6df3` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`),
+  CONSTRAINT `FK2jwyvqtrlfe9w8wfor40pk71o` FOREIGN KEY (`weargateway_id`) REFERENCES `bz_weargateway` (`id`),
+  CONSTRAINT `FKgp4slnrt2d78sys02ksb57js9` FOREIGN KEY (`watch_id`) REFERENCES `bz_watch` (`id`),
+  CONSTRAINT `FKm5cyms6adpetvxn95ry0yrou1` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_health_press
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_health_vq`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_health_vq`;
+CREATE TABLE `bz_health_vq` (
+  `id` varchar(50) NOT NULL,
+  `collectedTime` datetime DEFAULT NULL,
+  `collectedValue` varchar(50) NOT NULL,
+  `weargateway_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  `watch_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKgoyhxsd9uixgcny3l17pyhly0` (`weargateway_id`),
+  KEY `FK1dp2s5xuvk3vb0gkq6ythwoxx` (`staff_id`),
+  KEY `FKji1anbg7hru7qw55cscoo4ooy` (`task_id`),
+  KEY `FKrxgtcsr13moyydq04q623dd79` (`watch_id`),
+  CONSTRAINT `FK1dp2s5xuvk3vb0gkq6ythwoxx` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKgoyhxsd9uixgcny3l17pyhly0` FOREIGN KEY (`weargateway_id`) REFERENCES `bz_weargateway` (`id`),
+  CONSTRAINT `FKji1anbg7hru7qw55cscoo4ooy` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`),
+  CONSTRAINT `FKrxgtcsr13moyydq04q623dd79` FOREIGN KEY (`watch_id`) REFERENCES `bz_watch` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_health_vq
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_iccard`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_iccard`;
+CREATE TABLE `bz_iccard` (
+  `id` varchar(50) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `no` varchar(50) NOT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_c9o2hfg2w634tksb96d7dg33n` (`no`),
+  KEY `FKtkb8ccocdxjbtpqetb3bjgc77` (`staff_id`),
+  CONSTRAINT `FKtkb8ccocdxjbtpqetb3bjgc77` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_iccard
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_leave`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_leave`;
+CREATE TABLE `bz_leave` (
+  `id` varchar(50) NOT NULL,
+  `applyTime` datetime DEFAULT NULL,
+  `createTime` datetime DEFAULT NULL,
+  `procInstId` varchar(64) DEFAULT NULL,
+  `reason` varchar(200) DEFAULT NULL,
+  `reviewRemark` varchar(200) DEFAULT NULL,
+  `reviewResult` bit(1) DEFAULT NULL,
+  `reviewTime` datetime DEFAULT NULL,
+  `manager_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKdfwu8q6leaagpp19bxfwk34et` (`manager_id`),
+  KEY `FKex44cuh2qqg0fo9j0cjaa11e6` (`staff_id`),
+  CONSTRAINT `FKdfwu8q6leaagpp19bxfwk34et` FOREIGN KEY (`manager_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKex44cuh2qqg0fo9j0cjaa11e6` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_leave
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_message`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_message`;
+CREATE TABLE `bz_message` (
+  `id` varchar(50) NOT NULL,
+  `content` varchar(100) DEFAULT NULL,
+  `releaseTime` date DEFAULT NULL,
+  `title` varchar(20) NOT NULL,
+  `staff_id` varchar(50) NOT NULL,
+  `task_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKrdai4ss91fwdiqwiyx7t0bphm` (`staff_id`),
+  KEY `FKat77nj5tj4o9dgml2j4ubjdkh` (`task_id`),
+  CONSTRAINT `FKat77nj5tj4o9dgml2j4ubjdkh` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`),
+  CONSTRAINT `FKrdai4ss91fwdiqwiyx7t0bphm` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_message
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_notice`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_notice`;
+CREATE TABLE `bz_notice` (
+  `id` varchar(50) NOT NULL,
+  `content` varchar(100) DEFAULT NULL,
+  `expirationTime` datetime DEFAULT NULL,
+  `releaseTime` datetime DEFAULT NULL,
+  `title` varchar(50) NOT NULL,
+  `staff_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK8skwslb00v5y2y19rhypa333s` (`staff_id`),
+  CONSTRAINT `FK8skwslb00v5y2y19rhypa333s` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_notice
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_notice_dept`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_notice_dept`;
+CREATE TABLE `bz_notice_dept` (
+  `notice_id` varchar(50) NOT NULL,
+  `dept_id` varchar(50) NOT NULL,
+  KEY `FK1tlx7nk8ona1ws6fnek2mkpra` (`dept_id`),
+  KEY `FKox6weyai6ldrir37yee3bt1na` (`notice_id`),
+  CONSTRAINT `FK1tlx7nk8ona1ws6fnek2mkpra` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`),
+  CONSTRAINT `FKox6weyai6ldrir37yee3bt1na` FOREIGN KEY (`notice_id`) REFERENCES `bz_notice` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_notice_dept
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_softwareversion`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_softwareversion`;
+CREATE TABLE `bz_softwareversion` (
+  `id` varchar(50) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `releaseTime` datetime DEFAULT NULL,
+  `software` varchar(200) DEFAULT NULL,
+  `versionId` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK683p889mg32vna4qipu9697g6` (`staff_id`),
+  CONSTRAINT `FK683p889mg32vna4qipu9697g6` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_softwareversion
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_task`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_task`;
+CREATE TABLE `bz_task` (
+  `id` varchar(50) NOT NULL,
+  `actualEndTime` datetime DEFAULT NULL,
+  `actualStartTime` datetime DEFAULT NULL,
+  `content` varchar(100) DEFAULT NULL,
+  `planEndTime` datetime DEFAULT NULL,
+  `planStartTime` datetime DEFAULT NULL,
+  `releaseTime` datetime DEFAULT NULL,
+  `title` varchar(50) NOT NULL,
+  `staff_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK2xyigbgpf2fbyqh8li3xnv5lk` (`staff_id`),
+  CONSTRAINT `FK2xyigbgpf2fbyqh8li3xnv5lk` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_task
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_task_staff`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_task_staff`;
+CREATE TABLE `bz_task_staff` (
+  `id` varchar(50) NOT NULL,
+  `positon` varchar(2) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK76u2r0c8y7bkvaj2g1fmyc78l` (`staff_id`),
+  KEY `FKjhbkp05jwm4lwqvi78qxad3li` (`task_id`),
+  CONSTRAINT `FK76u2r0c8y7bkvaj2g1fmyc78l` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKjhbkp05jwm4lwqvi78qxad3li` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_task_staff
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_warning`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_warning`;
+CREATE TABLE `bz_warning` (
+  `ID` varchar(50) NOT NULL,
+  `content` varchar(100) DEFAULT NULL,
+  `createTime` date DEFAULT NULL,
+  `title` varchar(50) NOT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `task_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FKsv16eb42trsl5j23mwaisnpj5` (`staff_id`),
+  KEY `FKglvf8yb64gri1ilwm3k6deiae` (`task_id`),
+  CONSTRAINT `FKglvf8yb64gri1ilwm3k6deiae` FOREIGN KEY (`task_id`) REFERENCES `bz_task` (`id`),
+  CONSTRAINT `FKsv16eb42trsl5j23mwaisnpj5` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_warning
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_watch`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_watch`;
+CREATE TABLE `bz_watch` (
+  `id` varchar(50) NOT NULL,
+  `detail` varchar(100) DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
+  `no` varchar(50) NOT NULL,
+  `parameters` varchar(100) DEFAULT NULL,
+  `userTime` datetime DEFAULT NULL,
+  `department_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_odqxt8mrs1xkitspsktyfefp4` (`no`),
+  KEY `FKm16k00w7s4wspf4dlu9hj4f5c` (`department_id`),
+  KEY `FKgqbclgddxla3qvyl1qeq8wqs8` (`staff_id`),
+  CONSTRAINT `FKgqbclgddxla3qvyl1qeq8wqs8` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKm16k00w7s4wspf4dlu9hj4f5c` FOREIGN KEY (`department_id`) REFERENCES `sys_dept` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_watch
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `bz_weargateway`
+-- ----------------------------
+DROP TABLE IF EXISTS `bz_weargateway`;
+CREATE TABLE `bz_weargateway` (
+  `id` varchar(50) NOT NULL,
+  `detail` varchar(100) DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
+  `no` varchar(50) NOT NULL,
+  `parameters` varchar(100) DEFAULT NULL,
+  `userTime` datetime DEFAULT NULL,
+  `department_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_il4va3as3j7x94b8ph917dhnl` (`no`),
+  KEY `FKq29yjbmgsf4i3q5n4on8k8qit` (`department_id`),
+  KEY `FK7yj048c6sqq6jb2fa0evlnvl7` (`staff_id`),
+  CONSTRAINT `FK7yj048c6sqq6jb2fa0evlnvl7` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKq29yjbmgsf4i3q5n4on8k8qit` FOREIGN KEY (`department_id`) REFERENCES `sys_dept` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bz_weargateway
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `sys_dept`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dept`;
+CREATE TABLE `sys_dept` (
+  `id` varchar(50) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `no` varchar(30) DEFAULT NULL,
+  `parent_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKd5ou5hch26i1tk6m8jc4fpirw` (`parent_id`),
+  CONSTRAINT `FKd5ou5hch26i1tk6m8jc4fpirw` FOREIGN KEY (`parent_id`) REFERENCES `sys_dept` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_dept
+-- ----------------------------
+INSERT INTO `sys_dept` VALUES ('1', null, '四川省电力公司', 'sc', null);
+
+-- ----------------------------
+-- Table structure for `sys_dictionary`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dictionary`;
+CREATE TABLE `sys_dictionary` (
+  `id` varchar(50) NOT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `dicType` varchar(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `val` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_dictionary
+-- ----------------------------
+INSERT INTO `sys_dictionary` VALUES ('1', null, 'menutype', 'URL', 'url');
+INSERT INTO `sys_dictionary` VALUES ('2', null, 'menutype', '函数', 'function');
+INSERT INTO `sys_dictionary` VALUES ('3', null, 'sex', '男', '1');
+INSERT INTO `sys_dictionary` VALUES ('4', null, 'sex', '女', '2');
+INSERT INTO `sys_dictionary` VALUES ('5', null, 'position', '管理者', '1');
+INSERT INTO `sys_dictionary` VALUES ('6', null, 'position', '普通人员', '2');
+
+-- ----------------------------
+-- Table structure for `sys_menu`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_menu`;
+CREATE TABLE `sys_menu` (
+  `id` varchar(50) NOT NULL,
+  `icon` varchar(200) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `no` varchar(30) DEFAULT NULL,
+  `resource` varchar(200) DEFAULT NULL,
+  `resourceType` varchar(200) DEFAULT NULL,
+  `parent_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK2jrf4gb0gjqi8882gxytpxnhe` (`parent_id`),
+  CONSTRAINT `FK2jrf4gb0gjqi8882gxytpxnhe` FOREIGN KEY (`parent_id`) REFERENCES `sys_menu` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_menu
+-- ----------------------------
+INSERT INTO `sys_menu` VALUES ('00cfd221-1c71-4e18-97d1-63aada6b914a', '', 'VQ健康度', null, 'page/bz-vq', 'url', '41d7c3ac-e6f2-4672-8df1-6f8bbdba806c');
+INSERT INTO `sys_menu` VALUES ('09758a97-dd1a-4f54-a19a-e4c7d84894b1', '', '我的任务', null, 'page/bz-mytask', 'url', 'c5180230-b206-45e7-af7d-e96da2dea2c0');
+INSERT INTO `sys_menu` VALUES ('1', null, '系统管理', '00', '', null, null);
+INSERT INTO `sys_menu` VALUES ('14510576-34ee-421e-aa53-7026d20948c2', '', '部门', null, 'page/sys-dept', 'url', 'e01f8182-6024-4fd1-a085-6bb245670ffa');
+INSERT INTO `sys_menu` VALUES ('2', null, '用户', '0010', 'page/sys-user', 'url', '1');
+INSERT INTO `sys_menu` VALUES ('2c96877c-c479-4d80-bee5-44b9c1bf18cd', '', '预警', null, 'page/bz-warning', 'url', 'efdd837b-2410-40e1-bf23-28333d1a0768');
+INSERT INTO `sys_menu` VALUES ('3', null, '菜单', '0001', 'page/sys-menu', 'url', '1');
+INSERT INTO `sys_menu` VALUES ('4', null, '数据字典', '0090', 'page/sys-dictionary', 'url', '1');
+INSERT INTO `sys_menu` VALUES ('40450d42-b398-416e-8f42-6a24dbc44147', '', '设备管理', null, '', '', null);
+INSERT INTO `sys_menu` VALUES ('41d7c3ac-e6f2-4672-8df1-6f8bbdba806c', '', '健康数据', null, '', '', 'b3513b35-0fd1-4113-ad11-2cbbb2c1b6d8');
+INSERT INTO `sys_menu` VALUES ('5', null, '角色', '0030', 'page/sys-role', 'url', '1');
+INSERT INTO `sys_menu` VALUES ('5b69d427-3c87-4294-a548-d9c91a1128d5', '', '地理信息', null, 'page/bz-gis', 'url', 'b3513b35-0fd1-4113-ad11-2cbbb2c1b6d8');
+INSERT INTO `sys_menu` VALUES ('6a436853-c566-46ff-9ff6-571e6b49bbf4', '', '血流速度', null, 'page/bz-bloodspeed', 'url', '41d7c3ac-e6f2-4672-8df1-6f8bbdba806c');
+INSERT INTO `sys_menu` VALUES ('7a29c4e1-b758-4bfc-816f-3f12695a7c0b', '', '压力度', null, 'page/bz-pressure', 'url', '41d7c3ac-e6f2-4672-8df1-6f8bbdba806c');
+INSERT INTO `sys_menu` VALUES ('864b95c1-0891-4f92-8fbe-4f8bd8159b61', '', '疲劳度', null, 'page/bz-fatigue', 'url', '41d7c3ac-e6f2-4672-8df1-6f8bbdba806c');
+INSERT INTO `sys_menu` VALUES ('89e08c2a-40fb-4626-8c27-523a9bfcdac0', '', '我的人员信息', null, 'page/sys-mystaff', 'url', 'c5180230-b206-45e7-af7d-e96da2dea2c0');
+INSERT INTO `sys_menu` VALUES ('89f931cc-38b2-4e68-b3ea-1341db01797e', '', '我的预警', null, 'page/bz-mywarning', 'url', 'c5180230-b206-45e7-af7d-e96da2dea2c0');
+INSERT INTO `sys_menu` VALUES ('8bcdee88-bd7f-4014-b615-954dae3e7d4d', '', '我的消息', null, 'page/bz-mymessage', 'url', 'c5180230-b206-45e7-af7d-e96da2dea2c0');
+INSERT INTO `sys_menu` VALUES ('9e89d9ad-967d-43d7-a4cf-eeff26f4f8c6', '', '消息', null, 'page/bz-message', 'url', 'efdd837b-2410-40e1-bf23-28333d1a0768');
+INSERT INTO `sys_menu` VALUES ('a7183173-6652-4093-bbca-756feb1f6892', '', '公告', null, 'page/bz-notice', 'url', 'efdd837b-2410-40e1-bf23-28333d1a0768');
+INSERT INTO `sys_menu` VALUES ('acfd708c-5346-4db6-9137-9d0b256294fa', '', '任务', null, 'page/bz-task', 'url', 'efdd837b-2410-40e1-bf23-28333d1a0768');
+INSERT INTO `sys_menu` VALUES ('ae29afd8-76b9-4b82-abd9-1e2482d95624', '', '腕表', null, 'page/bz-watch', 'url', '40450d42-b398-416e-8f42-6a24dbc44147');
+INSERT INTO `sys_menu` VALUES ('b1f4ec5e-a864-4164-b162-de114731ba45', '', '心率', null, 'page/bz-heartrate', '', '41d7c3ac-e6f2-4672-8df1-6f8bbdba806c');
+INSERT INTO `sys_menu` VALUES ('b3513b35-0fd1-4113-ad11-2cbbb2c1b6d8', '', '数据中心', null, '', '', null);
+INSERT INTO `sys_menu` VALUES ('b744e0d6-34cc-4485-a5c6-7b5f070d3ffd', '', '人员', null, 'page/sys-staff', 'url', 'e01f8182-6024-4fd1-a085-6bb245670ffa');
+INSERT INTO `sys_menu` VALUES ('c5180230-b206-45e7-af7d-e96da2dea2c0', '', '个人中心', null, '', '', null);
+INSERT INTO `sys_menu` VALUES ('d4219317-9eee-4358-a2ff-e06e2a7250ea', '', '环境参数', null, 'page/bz-envinfo', 'url', 'b3513b35-0fd1-4113-ad11-2cbbb2c1b6d8');
+INSERT INTO `sys_menu` VALUES ('d5c0a9db-2379-4ade-bc54-6ee76dea6d6c', '', '心脏健康度', null, 'page/bz-hearthealth', 'url', '41d7c3ac-e6f2-4672-8df1-6f8bbdba806c');
+INSERT INTO `sys_menu` VALUES ('d5f665ca-d569-4bee-9df5-f203836526c9', '', '可穿戴网关', null, 'page/bz-gateway', 'url', '40450d42-b398-416e-8f42-6a24dbc44147');
+INSERT INTO `sys_menu` VALUES ('e01f8182-6024-4fd1-a085-6bb245670ffa', '', '部门管理', null, '', '', null);
+INSERT INTO `sys_menu` VALUES ('e04e90c9-1774-4356-bee8-166407fa23ed', '', '系统参数', null, 'page/sys-parameter', 'url', '1');
+INSERT INTO `sys_menu` VALUES ('efdd837b-2410-40e1-bf23-28333d1a0768', '', '信息中心', null, '', '', null);
+INSERT INTO `sys_menu` VALUES ('fda21428-30cd-44a8-9336-36933eef77c8', '', 'IC卡', null, 'page/bz-card', 'url', '40450d42-b398-416e-8f42-6a24dbc44147');
+
+-- ----------------------------
+-- Table structure for `sys_parameter`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_parameter`;
+CREATE TABLE `sys_parameter` (
+  `id` varchar(50) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `sysKey` varchar(50) DEFAULT NULL,
+  `sysValue` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_parameter
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `sys_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE `sys_role` (
+  `id` varchar(50) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `type` varchar(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_role
+-- ----------------------------
+INSERT INTO `sys_role` VALUES ('8a873a08628a9b2101628ab0c65a0000', '', '管理者', '');
+INSERT INTO `sys_role` VALUES ('8a873a08628a9b2101628ab29dbb0001', '', '工作人员', '');
+INSERT INTO `sys_role` VALUES ('admin', '', 'admin', '');
+
+-- ----------------------------
+-- Table structure for `sys_role_menu`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_menu`;
+CREATE TABLE `sys_role_menu` (
+  `role_id` varchar(50) NOT NULL,
+  `menu_id` varchar(50) NOT NULL,
+  KEY `FKf3mud4qoc7ayew8nml4plkevo` (`menu_id`),
+  KEY `FKkeitxsgxwayackgqllio4ohn5` (`role_id`),
+  CONSTRAINT `FKf3mud4qoc7ayew8nml4plkevo` FOREIGN KEY (`menu_id`) REFERENCES `sys_menu` (`id`),
+  CONSTRAINT `FKkeitxsgxwayackgqllio4ohn5` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_role_menu
+-- ----------------------------
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', 'ae29afd8-76b9-4b82-abd9-1e2482d95624');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', 'd5f665ca-d569-4bee-9df5-f203836526c9');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', 'fda21428-30cd-44a8-9336-36933eef77c8');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '00cfd221-1c71-4e18-97d1-63aada6b914a');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '6a436853-c566-46ff-9ff6-571e6b49bbf4');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '7a29c4e1-b758-4bfc-816f-3f12695a7c0b');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '864b95c1-0891-4f92-8fbe-4f8bd8159b61');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', 'b1f4ec5e-a864-4164-b162-de114731ba45');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', 'd5c0a9db-2379-4ade-bc54-6ee76dea6d6c');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '5b69d427-3c87-4294-a548-d9c91a1128d5');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', 'd4219317-9eee-4358-a2ff-e06e2a7250ea');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '09758a97-dd1a-4f54-a19a-e4c7d84894b1');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '89e08c2a-40fb-4626-8c27-523a9bfcdac0');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '89f931cc-38b2-4e68-b3ea-1341db01797e');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '8bcdee88-bd7f-4014-b615-954dae3e7d4d');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', 'b744e0d6-34cc-4485-a5c6-7b5f070d3ffd');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '2c96877c-c479-4d80-bee5-44b9c1bf18cd');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', '9e89d9ad-967d-43d7-a4cf-eeff26f4f8c6');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', 'a7183173-6652-4093-bbca-756feb1f6892');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab0c65a0000', 'acfd708c-5346-4db6-9137-9d0b256294fa');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab29dbb0001', '09758a97-dd1a-4f54-a19a-e4c7d84894b1');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab29dbb0001', '89e08c2a-40fb-4626-8c27-523a9bfcdac0');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab29dbb0001', '89f931cc-38b2-4e68-b3ea-1341db01797e');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab29dbb0001', '8bcdee88-bd7f-4014-b615-954dae3e7d4d');
+INSERT INTO `sys_role_menu` VALUES ('8a873a08628a9b2101628ab29dbb0001', 'a7183173-6652-4093-bbca-756feb1f6892');
+
+-- ----------------------------
+-- Table structure for `sys_staff`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_staff`;
+CREATE TABLE `sys_staff` (
+  `id` varchar(50) NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `headImage` varchar(200) DEFAULT NULL,
+  `idCard` varchar(200) DEFAULT NULL,
+  `mobile` varchar(30) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `no` varchar(50) DEFAULT NULL,
+  `sex` varchar(2) DEFAULT NULL,
+  `user_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKl9pfv03dtwt6i4wmx4jvmuktb` (`user_id`),
+  CONSTRAINT `FKl9pfv03dtwt6i4wmx4jvmuktb` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_staff
+-- ----------------------------
+INSERT INTO `sys_staff` VALUES ('1', '1980-11-11', null, null, null, null, null, '1', '8a873a08628a9b2101628ab33ff40002');
+INSERT INTO `sys_staff` VALUES ('2', '1990-02-03', null, null, null, null, null, '1', '8a873a08628a9b2101628ab3cfbc0003');
+
+-- ----------------------------
+-- Table structure for `sys_staff_dept`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_staff_dept`;
+CREATE TABLE `sys_staff_dept` (
+  `id` varchar(50) NOT NULL,
+  `position` varchar(2) DEFAULT NULL,
+  `dept_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKml6silxvxx9pv4dcbsh08s4uw` (`dept_id`),
+  KEY `FKhfhqctxh9ce5cpfrpx7c6eek` (`staff_id`),
+  CONSTRAINT `FKhfhqctxh9ce5cpfrpx7c6eek` FOREIGN KEY (`staff_id`) REFERENCES `sys_staff` (`id`),
+  CONSTRAINT `FKml6silxvxx9pv4dcbsh08s4uw` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_staff_dept
+-- ----------------------------
+INSERT INTO `sys_staff_dept` VALUES ('1', '1', '1', '1');
+INSERT INTO `sys_staff_dept` VALUES ('2', '2', '1', '2');
+
+-- ----------------------------
+-- Table structure for `sys_systemparameter`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_systemparameter`;
+CREATE TABLE `sys_systemparameter` (
+  `id` varchar(50) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `sysKey` varchar(50) DEFAULT NULL,
+  `sysValue` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_systemparameter
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `sys_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user`;
+CREATE TABLE `sys_user` (
+  `id` varchar(50) NOT NULL,
+  `loginName` varchar(20) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `createTime` datetime DEFAULT NULL,
+  `headImage` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_user
+-- ----------------------------
+INSERT INTO `sys_user` VALUES ('1', 'admin', '123', '2018-04-02 15:11:54', null);
+INSERT INTO `sys_user` VALUES ('8a873a08628a9b2101628ab33ff40002', 'manager', '123', '2018-04-03 16:50:25', null);
+INSERT INTO `sys_user` VALUES ('8a873a08628a9b2101628ab3cfbc0003', 'staff', '123', '2018-04-03 16:51:02', null);
+
+-- ----------------------------
+-- Table structure for `sys_user_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_role`;
+CREATE TABLE `sys_user_role` (
+  `user_id` varchar(50) NOT NULL,
+  `role_id` varchar(50) NOT NULL,
+  KEY `FKhh52n8vd4ny9ff4x9fb8v65qx` (`role_id`),
+  KEY `FKb40xxfch70f5qnyfw8yme1n1s` (`user_id`),
+  CONSTRAINT `FKb40xxfch70f5qnyfw8yme1n1s` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`),
+  CONSTRAINT `FKhh52n8vd4ny9ff4x9fb8v65qx` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_user_role
+-- ----------------------------
+INSERT INTO `sys_user_role` VALUES ('1', 'admin');
+INSERT INTO `sys_user_role` VALUES ('8a873a08628a9b2101628ab33ff40002', '8a873a08628a9b2101628ab0c65a0000');
+INSERT INTO `sys_user_role` VALUES ('8a873a08628a9b2101628ab3cfbc0003', '8a873a08628a9b2101628ab29dbb0001');

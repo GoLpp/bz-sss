@@ -1,0 +1,19 @@
+package com.qfedu.esys.dao;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+import com.qfedu.esys.entity.Dictionary;
+
+/**
+ * @author cailei
+ */
+public interface IDictionaryDao extends PagingAndSortingRepository<Dictionary, String> {
+
+	Page<Dictionary> findAllByDicTypeLike (String dicType, Pageable p);
+	
+	List<Dictionary> findAllByDicType (String dicType);
+}

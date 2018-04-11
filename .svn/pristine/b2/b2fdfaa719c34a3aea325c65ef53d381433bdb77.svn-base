@@ -1,0 +1,31 @@
+package com.qfedu.common.exception;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.qfedu.common.WoException;
+import com.qfedu.common.entity.WoResultCode;
+
+@ControllerAdvice // 对controller进行增强，处理其抛出的异常
+public class WoExceptionHandler {
+	private final static Logger LOG = LogManager.getLogger(WoExceptionHandler.class);
+	
+	/**
+	 * 当controller中抛出类型为Exception的异常时，该方法被调用
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(Exception.class) // 表示处理某类型的异常
+	@ResponseBody // 返回对象，和controller中的注解用法一致
+	public Object handlerException (Exception e) {
+		if (e instanceof WoException) {// 处理WoException
+			return ((WoException)e).getCode();
+		} else if (e.getCause() instanceof WoException) {// 处理由WoException导致的异常
+			return ((WoException)e.getCause()).getCode();
+		}
+		// 其他
+		return WoResultCode.getUnknownCode();
+	}
+}
